@@ -7,10 +7,11 @@ function [J, grad] = costFunctionReg(theta, X, y, lambda)
 % Initialize some useful values
 m = length(y); % number of training examples
 
-% You need to return the following variables correctly 
-J = 1/m * sum(-y .* log(sigmoid(X*theta)) - (1 - y) .* log(1-sigmoid(X*theta))) + lambda/(2*m) * sum(theta.^2);
+% You need to return the following variables correctly
 features = ones(length(theta), 1);
 features(1) = 0;
+
+J = 1/m * sum(-y .* log(sigmoid(X*theta)) - (1 - y) .* log(1-sigmoid(X*theta))) + lambda/(2*m) * sum((features .* theta).^2);
 grad = 1/m * X' * (sigmoid(X * theta) - y) + features .* (lambda/m * theta); 
 
 % ====================== YOUR CODE HERE ======================
