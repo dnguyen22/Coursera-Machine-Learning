@@ -26,7 +26,7 @@ Theta2 = reshape(nn_params((1 + (hidden_layer_size * (input_layer_size + 1))):en
 m = size(X, 1);
          
 % You need to return the following variables correctly 
-J = 0;
+J = ones(m, 1);
 Theta1_grad = zeros(size(Theta1));
 Theta2_grad = zeros(size(Theta2));
 
@@ -62,22 +62,24 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+% Create matrix of Y values
+I = eye(num_labels);
+Y = zeros(m, num_labels);
+for i=1:m
+  Y(i, :)= I(y(i), :);
+end
 
+% FEED FORWARD
+% Add ones to the X data matrix
+a1 = [ones(m, 1) X]; 
+z2 = a1 * Theta1';
+a2 = [ones(size(z2, 1), 1) sigmoid(z2)];
+z3 = a2 * Theta2';
+h = sigmoid(z3);
 
+J = 1/m * sum(sum(-Y .* log(h) - (1 - Y) .* log(1-h)));
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+%grad = 1/m * X' * (sigmoid(X * theta) - y) + features .* (lambda/m * theta);
 
 
 % -------------------------------------------------------------
