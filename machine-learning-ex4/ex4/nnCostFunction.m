@@ -27,8 +27,8 @@ m = size(X, 1);
          
 % You need to return the following variables correctly 
 J = ones(m, 1);
-Theta1_grad = zeros(size(Theta1));
-Theta2_grad = zeros(size(Theta2));
+%Theta1_grad = zeros(size(Theta1));
+%Theta2_grad = zeros(size(Theta2));
 
 % ====================== YOUR CODE HERE ======================
 % Instructions: You should complete the code by working through the
@@ -93,8 +93,12 @@ sigma2 = sigma2(:, 2:end);
 
 delta1 = sigma2' * a1;
 delta2 = sigma3' * a2;
-Theta1_grad = delta1 ./ m;
-Theta2_grad = delta2 ./ m;
+set_theta1 = ones(size(Theta1)); 
+set_theta2 = ones(size(Theta2));
+set_theta1(:, 1) = 0;
+set_theta2(:, 1) = 0;
+Theta1_grad = delta1 ./ m + lambda / m .* Theta1 .* set_theta1;
+Theta2_grad = delta2 ./ m + lambda / m .* Theta2 .* set_theta2;
 
 % -------------------------------------------------------------
 
