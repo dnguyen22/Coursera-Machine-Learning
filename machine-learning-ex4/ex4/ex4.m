@@ -57,9 +57,6 @@ load('ex4weights.mat');
 % Unroll parameters 
 nn_params = [Theta1(:) ; Theta2(:)];
 
-fprintf('\nProgram paused. Press enter to continue.\n');
-pause;
-
 %% ================ Part 3: Compute Cost (Feedforward) ================
 %  To the neural network, you should first start by implementing the
 %  feedforward part of the neural network that returns the cost only. You
@@ -186,10 +183,10 @@ fprintf('\nTraining Neural Network... \n')
 
 %  After you have completed the assignment, change the MaxIter to a larger
 %  value to see how more training helps.
-options = optimset('MaxIter', 50);
+options = optimset('MaxIter', 400);
 
 %  You should also try different values of lambda
-lambda = 1;
+lambda = 0.3;
 
 % Create "short hand" for the cost function to be minimized
 costFunction = @(p) nnCostFunction(p, ...
