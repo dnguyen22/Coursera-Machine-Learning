@@ -77,7 +77,14 @@ a2 = [ones(size(z2, 1), 1) sigmoid(z2)];
 z3 = a2 * Theta2';
 h = sigmoid(z3);
 
-J = 1/m * sum(sum(-Y .* log(h) - (1 - Y) .* log(1-h)));
+% REGULARIZATION
+theta1_reg = Theta1;
+theta1_reg(:, 1) = 0;
+theta2_reg = Theta2;
+theta2_reg(:, 1) = 0;
+reg = lambda / (2 * m) * (sum(sum(theta1_reg .^2)) + sum(sum(theta2_reg .^ 2)));
+
+J = 1/m * sum(sum(-Y .* log(h) - (1 - Y) .* log(1-h))) + reg;
 
 %grad = 1/m * X' * (sigmoid(X * theta) - y) + features .* (lambda/m * theta);
 
