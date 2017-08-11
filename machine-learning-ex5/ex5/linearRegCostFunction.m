@@ -17,7 +17,7 @@ regularization(1) = 0;
 
 % You need to return the following variables correctly 
 J = 1/(2*m) * sum(sqrErrors) + lambda/(2*m) * sum((regularization .* theta).^2);
-grad = zeros(size(theta));
+grad = 1/m * sum((predictions-y) .* X) + (lambda/m * (regularization .* theta))';
 
 % ====================== YOUR CODE HERE ======================
 % Instructions: Compute the cost and gradient of regularized linear 
