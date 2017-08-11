@@ -8,8 +8,15 @@ function [J, grad] = linearRegCostFunction(X, y, theta, lambda)
 % Initialize some useful values
 m = length(y); % number of training examples
 
+predictions = X*theta; % predictions of hypothesis on all m examples
+sqrErrors = (predictions-y).^2; % squared errors
+
+% Regularization vector
+regularization = ones(length(theta), 1);
+regularization(1) = 0;
+
 % You need to return the following variables correctly 
-J = 0;
+J = 1/(2*m) * sum(sqrErrors) + lambda/(2*m) * sum((regularization .* theta).^2);
 grad = zeros(size(theta));
 
 % ====================== YOUR CODE HERE ======================
