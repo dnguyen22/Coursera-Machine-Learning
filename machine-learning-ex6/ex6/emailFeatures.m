@@ -10,6 +10,8 @@ n = 1899;
 % You need to return the following variables correctly.
 x = zeros(n, 1);
 
+tol = 1e-10;
+
 % ====================== YOUR CODE HERE ======================
 % Instructions: Fill in this function to return a feature vector for the
 %               given email (word_indices). To help make it easier to 
@@ -48,11 +50,13 @@ x = zeros(n, 1);
 %
 %
 
-
-
-
-
-
+for i = 1:n
+    if any(abs(i-word_indices)<tol)
+        x(i) = 1;
+    else
+        x(i) = 0;
+    end
+end
 
 
 % =========================================================================
