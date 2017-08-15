@@ -22,14 +22,8 @@ idx = zeros(size(X,1), 1);
 %
 
 for i = 1:size(X,1)
+    minCost = inf;
     for j = 1:K
-        x = X(i, :);
-        y = centroids(j, :);
-        if j == 1
-            idx(i) = j;
-            minCost = sum((X(i, :) - centroids(j, :)).^2);
-        end
-        
         cost = sum((X(i, :) - centroids(j, :)).^2);
         
         if cost < minCost
