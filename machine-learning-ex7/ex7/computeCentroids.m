@@ -27,14 +27,9 @@ centroids = zeros(K, n);
 %
 
 for i = 1:K
-    countCentroid = 0;
-    sumCentroid = zeros(1, n);
-    for j = 1:m
-        if idx(j) == i
-            countCentroid = countCentroid + 1;
-            sumCentroid = sumCentroid + X(j, :);
-        end
-    end
+    
+    countCentroid = sum(idx == i);
+    sumCentroid =  sum((idx == i) .* X);
     
     if countCentroid == 0
         centroids(i, :) = 0;
