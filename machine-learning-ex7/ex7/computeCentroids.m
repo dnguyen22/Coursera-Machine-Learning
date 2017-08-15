@@ -26,7 +26,24 @@ centroids = zeros(K, n);
 % Note: You can use a for-loop over the centroids to compute this.
 %
 
+for i = 1:K
+    countCentroid = 0;
+    sumCentroid = zeros(1, n);
+    for j = 1:m
+        if idx(j) == i
+            countCentroid = countCentroid + 1;
+            sumCentroid = sumCentroid + X(j, :);
+        end
+    end
+    
+    if countCentroid == 0
+        centroids(i, :) = 0;
+    else
+        centroids(i, :) = sumCentroid ./ countCentroid;
+    end
+end
 
+            
 
 
 
