@@ -54,7 +54,8 @@ for i=1:num_movies
     idx = find(R(i, :) == 1);
     ThetaTemp = Theta(idx, :);
     YTemp = Y(i, idx);
-    X_grad(i, :) = ((X(i, :) * ThetaTemp') - YTemp) * ThetaTemp;
+    gradXReg = lambda .* X(i, :);
+    X_grad(i, :) = ((X(i, :) * ThetaTemp') - YTemp) * ThetaTemp + gradXReg;
 end
 
 
@@ -62,7 +63,8 @@ for j=1:num_users
     idx = find(R(:, j) == 1);
     XTemp = X(idx, :);
     YTemp = Y(idx, j);
-    Theta_grad(j, :) = ((XTemp * Theta(j, :)') - YTemp)' * XTemp;
+    gradThetaReg = lambda .* Theta(j, :);
+    Theta_grad(j, :) = ((XTemp * Theta(j, :)') - YTemp)' * XTemp + gradThetaReg;
 end
 
 
