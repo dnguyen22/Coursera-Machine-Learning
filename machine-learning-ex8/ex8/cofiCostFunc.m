@@ -39,16 +39,13 @@ Theta_grad = zeros(size(Theta));
 %        Theta_grad - num_users x num_features matrix, containing the 
 %                     partial derivatives w.r.t. to each element of Theta
 %
-J = 0
-for i=1:num_movies
-    for j=1:num_users
-        if R(i, j) == 1
-            J = J + (X(i, :) * Theta(j, :)' - Y(i, j)) ^ 2;
-        end
-    end
-end
 
-J = J/2;
+% Calculate cost function
+% Vectorized square error between predictions (Theta'*X) and ratings (Y)
+M = ((X * Theta') - Y).^2;
+% Sum vectorized errors where R == 1
+J = sum(sum(R .* M))/2;
+
 
 
 
