@@ -43,7 +43,11 @@ Theta_grad = zeros(size(Theta));
 % Vectorized square error between predictions (Theta'*X) and ratings (Y)
 M = ((X * Theta') - Y).^2;
 % Sum vectorized errors where R == 1
-J = sum(sum(R .* M))/2;
+cost = sum(sum(R .* M))/2;
+% Cost regularization
+costReg = lambda/2 * (sum(sum(Theta .^2)) + sum(sum(X .^2)));
+
+J = cost + costReg;
 
 % Calculate gradient
 for i=1:num_movies
