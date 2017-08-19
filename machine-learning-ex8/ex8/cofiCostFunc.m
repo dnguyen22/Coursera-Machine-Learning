@@ -13,7 +13,6 @@ Theta = reshape(params(num_movies*num_features+1:end), ...
 
             
 % You need to return the following values correctly
-J = 0;
 X_grad = zeros(size(X));
 Theta_grad = zeros(size(Theta));
 
@@ -46,10 +45,21 @@ M = ((X * Theta') - Y).^2;
 % Sum vectorized errors where R == 1
 J = sum(sum(R .* M))/2;
 
+% Calculate gradient
+for i=1:num_movies
+    idx = find(R(i, :) == 1);
+    ThetaTemp = Theta(idx, :);
+    YTemp = Y(i, idx);
+    X_grad(i, :) = ((X(i, :) * ThetaTemp') - YTemp) * ThetaTemp;
+end
 
 
-
-
+for j=1:num_users
+    idx = find(R(:, j) == 1);
+    XTemp = X(idx, :);
+    YTemp = Y(idx, j);
+    Theta_grad(j, :) = (XTemp' * ((XTemp * Theta(j, :)') - YTemp))';
+end
 
 
 
